@@ -1,10 +1,11 @@
 export interface DemoSection {
   title: string;
-  videoUrl: string;
+  videoUrl?: string;
+  imageUrl?: string;
   externalLink?: string; // アイコンクリック時のリンク先
   features: {
     tag: string;
-    text: string;
+    text: string | string[];
   }[];
 }
 
@@ -21,6 +22,37 @@ export type MenuItem = {
 };
 
 export const PORTFOLIO_DATA: MenuItem[] = [
+  {
+    category: "Now developing",
+    items: [
+      {
+        id: "1",
+        name: "疑似国会のSNSアプリ（Javaバージョン）",
+        description: "SNSの要領で模擬委員会（国会の中）毎に法案を審議するアプリ",
+        // ここからが DemoSection の配列
+        demos: [
+          {
+            title: "タイムライン表示",
+            imageUrl: "/images/timeline.png", // public/movies/ に配置
+            externalLink: "",
+            features: [
+              { tag: "Java", text: ["投稿された法案の一覧をデータベースから取得して表示", "「いいね」や賛成・反対を付ける事ができる"] },
+              { tag: "Spring Framework", text: "フロントエンドを構成" },
+              { tag: "Tailwindcss", text: "フロントエンドのスタイリングに使用"}
+            ]
+          },
+          {
+            title: "投稿詳細",
+            imageUrl: "/images/comment.png", // public/movies/ に配置
+            externalLink: "",
+            features: [
+              { tag: "Java", text: "修正案やコメントを質疑として提出する事ができる" },
+            ]
+          },
+        ]
+      }
+    ]
+  },
   {
     category: "Frontend Coding",
     items: [

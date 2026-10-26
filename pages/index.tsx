@@ -1,34 +1,34 @@
-import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Layout from '../components/layout';
-import { TypingText } from '../components/TypingText';
-import { PORTFOLIO_DATA, MenuItem, ProjectDetail } from '../libs/types';
-import { FaExternalLinkAlt } from 'react-icons/fa';
+import { useState, useEffect, useRef } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import Layout from '../components/layout'
+import { TypingText } from '../components/TypingText'
+import { PORTFOLIO_DATA, MenuItem, ProjectDetail } from '../libs/types'
+import { FaExternalLinkAlt } from 'react-icons/fa'
 
 export default function Home() {
-  const mainRef = useRef<HTMLDivElement>(null);
-  const [selectedCategory, setSelectedCategory] = useState<MenuItem>(PORTFOLIO_DATA[0]);
-  const [selectedProject, setSelectedProject] = useState<ProjectDetail>(PORTFOLIO_DATA[0].items[0]);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const mainRef = useRef<HTMLDivElement>(null)
+  const [selectedCategory, setSelectedCategory] = useState<MenuItem>(PORTFOLIO_DATA[0])
+  const [selectedProject, setSelectedProject] = useState<ProjectDetail>(PORTFOLIO_DATA[0].items[0])
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
-  const [hasMounted, setHasMounted] = useState(false);
-  const [showWelcomeTyping, setShowWelcomeTyping] = useState(true);
-  const [openCategories, setOpenCategories] = useState<string[]>([PORTFOLIO_DATA[0].category]);
+  const [hasMounted, setHasMounted] = useState(false)
+  const [showWelcomeTyping, setShowWelcomeTyping] = useState(true)
+  const [openCategories, setOpenCategories] = useState<string[]>([PORTFOLIO_DATA[0].category])
 
   useEffect(() => {
-    setHasMounted(true);
-    const timer = setTimeout(() => setShowWelcomeTyping(false), 2000);
-    return () => clearTimeout(timer);
-  }, []);
+    setHasMounted(true)
+    const timer = setTimeout(() => setShowWelcomeTyping(false), 2000)
+    return () => clearTimeout(timer)
+  }, [])
 
   useEffect(() => {
     const isProjectInCategory = selectedCategory.items.some(
       item => item.name === selectedProject.name
-    );
+    )
     if (!isProjectInCategory && selectedCategory.items.length > 0) {
-      setSelectedProject(selectedCategory.items[0]);
+      setSelectedProject(selectedCategory.items[0])
     }
-  }, [selectedCategory]);
+  }, [selectedCategory])
 
   useEffect(() => {
     // プロジェクトが切り替わったときに実行
@@ -36,26 +36,26 @@ export default function Home() {
       mainRef.current.scrollTo({
         top: 0,
         behavior: 'smooth' // SCSSで設定済みならこれだけでも滑らかになります
-      });
+      })
     }
-  }, [selectedProject]); // selectedProjectが変わるたびに発火
+  }, [selectedProject]) // selectedProjectが変わるたびに発火
 
   const toggleCategory = (categoryName: string) => {
     setOpenCategories(prev =>
       prev.includes(categoryName)
         ? prev.filter(c => c !== categoryName)
         : [...prev, categoryName]
-    );
-  };
+    )
+  }
 
   const handleSelect = (category: MenuItem, project: ProjectDetail) => {
-    setSelectedCategory(category);
-    setSelectedProject(project);
-    if (window.innerWidth < 768) setIsSidebarOpen(false);
-  };
+    setSelectedCategory(category)
+    setSelectedProject(project)
+    if (window.innerWidth < 768) setIsSidebarOpen(false)
+  }
 
   if (!hasMounted) {
-    return <div className="min-h-screen bg-[#DDE7E5]" />;
+    return <div className="min-h-screen bg-[#DDE7E5]" />
   }
 
   return (
@@ -75,16 +75,16 @@ export default function Home() {
 
             <nav className="space-y-5 overflow-y-auto pr-2 custom-scrollbar">
               {PORTFOLIO_DATA.map((group) => {
-                const isOpen = openCategories.includes(group.category);
-                const isSelected = selectedCategory.category === group.category;
+                const isOpen = openCategories.includes(group.category)
+                const isSelected = selectedCategory.category === group.category
                 return (
                   <div key={group.category} className="select-none">
                     {/* カテゴリ名を text-xl -> text-lg に調整 */}
                     <h2
                       className={`flex items-center text-lg font-bold cursor-pointer transition-colors ${isSelected ? "text-blue-600" : "hover:text-blue-400"}`}
                       onClick={() => {
-                        toggleCategory(group.category);
-                        setSelectedCategory(group);
+                        toggleCategory(group.category)
+                        setSelectedCategory(group)
                       }}
                     >
                       <span className="mr-2 text-[8px] w-3 flex-shrink-0">
@@ -115,7 +115,7 @@ export default function Home() {
                       )}
                     </AnimatePresence>
                   </div>
-                );
+                )
               })}
             </nav>
           </div>
@@ -133,8 +133,8 @@ export default function Home() {
               <button
                 key={group.category}
                 onClick={() => {
-                  setSelectedCategory(group);
-                  if (!openCategories.includes(group.category)) setOpenCategories(prev => [...prev, group.category]);
+                  setSelectedCategory(group)
+                  if (!openCategories.includes(group.category)) setOpenCategories(prev => [...prev, group.category])
                 }}
                 className={`px-6 md:px-12 h-full flex items-center justify-center text-xs md:text-sm font-bold border-r border-slate-100 transition-all whitespace-nowrap ${selectedCategory.category === group.category ? "bg-[#DDE7E5] text-slate-800" : "text-slate-400 hover:bg-slate-50"}`}
               >
@@ -188,7 +188,7 @@ export default function Home() {
                     <span className="text-green-400">description:</span> {selectedProject.description}
                   </p>
                 </div>
-                
+
                 {/* デモセクション：ここが伸びることで外枠も一緒に伸びる */}
                 <div className="space-y-16">
                   {selectedProject.demos?.map((demo, index) => (
@@ -204,7 +204,18 @@ export default function Home() {
                       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
                         {/* 動画部分：ここも aspect-[16/9] であればその高さ分だけ確保される */}
                         <div className="relative aspect-[16/9] bg-black rounded shadow-lg overflow-hidden border border-white/5">
-                          <video src={demo.videoUrl} className="w-full h-full object-cover" loop playsInline muted autoPlay controls />
+                          {demo.videoUrl && (
+                            <video src={demo.videoUrl} className="w-full h-full object-cover" loop playsInline muted autoPlay controls />
+                          )}
+                          {demo.imageUrl && (
+                            <a href={demo.imageUrl} target='_blank'>
+                              <img
+                                src={demo.imageUrl}
+                                className="absolute top-0 left-0 w-full h-auto animate-scroll-down"
+                                alt="Timeline"
+                              />
+                            </a>
+                          )}
                         </div>
 
                         {/* リスト部分 */}
@@ -217,10 +228,19 @@ export default function Home() {
                                   {feature.tag}
                                 </span>
                               </div>
-                              <div className="flex items-start gap-3 text-slate-200">
-                                <span>•</span>
-                                <p className="text-sm md:text-base leading-relaxed">{feature.text}</p>
-                              </div>
+                              {Array.isArray(feature.text) ? (
+                                feature.text.map((t: string, tIndex) => (
+                                  <div key={tIndex} className="flex items-start gap-3 text-slate-200">
+                                  <span>•</span>
+                                  <p className="text-sm md:text-base leading-relaxed">{t}</p>
+                                </div>
+                                ))
+                              ) : (
+                                <div className="flex items-start gap-3 text-slate-200">
+                                  <span>•</span>
+                                  <p className="text-sm md:text-base leading-relaxed">{feature.text}</p>
+                                </div>
+                              )}
                             </div>
                           ))}
                         </div>
@@ -231,14 +251,14 @@ export default function Home() {
               </div>
             </div>
           </main>
-        </div>
+        </div >
 
         <AnimatePresence>
           {isSidebarOpen && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-black/40 z-40 md:hidden" onClick={() => setIsSidebarOpen(false)} />
           )}
         </AnimatePresence>
-      </div>
-    </Layout>
-  );
+      </div >
+    </Layout >
+  )
 }
