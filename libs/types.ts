@@ -37,8 +37,8 @@ export const PORTFOLIO_DATA: MenuItem[] = [
             externalLink: "",
             features: [
               { tag: "Java", text: ["投稿された法案の一覧をデータベースから取得して表示", "「いいね」や賛成・反対を付ける事ができる"] },
-              { tag: "Spring Framework", text: "フロントエンドを構成" },
-              { tag: "Tailwindcss", text: "フロントエンドのスタイリングに使用"}
+              { tag: "Spring Framework", text: "Spring Frameworkでフロントエンドを構成" },
+              { tag: "Tailwindcss", text: "Tailwindcssをフロントエンドの装飾に使用"}
             ]
           },
           {

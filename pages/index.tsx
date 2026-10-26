@@ -147,10 +147,8 @@ export default function Home() {
             ref={mainRef}
             className="flex-1 p-6 md:p-12 overflow-y-auto space-y-8 bg-[#DDE7E5]/30 custom-scrollbar">
             <div className="font-mono text-sm md:text-base leading-relaxed text-slate-700">
-              <p>
                 higakosk@works ~ % {showWelcomeTyping ? <TypingText text="welcome" /> : <span>welcome</span>}
                 {showWelcomeTyping && <motion.span animate={{ opacity: [0, 1, 0] }} transition={{ repeat: Infinity, duration: 0.8 }} className="inline-block w-2 h-4 bg-slate-700 ml-1 translate-y-1" />}
-              </p>
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }}>
                 <p>Please choose any number below to see details.</p>
                 <ul className="mt-4 space-y-2">
