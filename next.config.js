@@ -48,6 +48,7 @@ module.exports = (phase, { defaultConfig }) => {
 		return {
 			/* development only config options here */
 			reactStrictMode: true,
+			devIndicators: false,
 		}
 	}
 
@@ -56,6 +57,7 @@ module.exports = (phase, { defaultConfig }) => {
 		output: 'export',
 		
 		reactStrictMode: false,
+		devIndicators: false,
 
 		// use security headers
 		async headers() {
@@ -68,10 +70,3 @@ module.exports = (phase, { defaultConfig }) => {
 		}
 	}
 }
-
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-	devIndicators: false,
-}
-
-module.exports = nextConfig
